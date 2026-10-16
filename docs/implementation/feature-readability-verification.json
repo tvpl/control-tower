@@ -1,0 +1,72 @@
+{
+  "checkedAt": "2026-10-16T19:28:52.684032+00:00",
+  "status": "PASSED",
+  "scope": "feature readability; local Docker; no business mutation or schema change",
+  "unitTests": {
+    "passed": 183,
+    "files": 26,
+    "seconds": 16.72
+  },
+  "focusedRetest": {
+    "passed": 14,
+    "seconds": 0.14
+  },
+  "e2e": {
+    "passed": 13,
+    "seconds": 56.4,
+    "qaProject": "mct-ui-qa-16abe727",
+    "cleanup": "COMPLETE",
+    "checks": [
+      "Panorama default and no initial canvas",
+      "named groups",
+      "collapse/expand and collapsed neighbor height",
+      "fixed execution/acceptance fields",
+      "feature to delivery modal",
+      "relations group to feature and return",
+      "minimap",
+      "edge label/node geometry",
+      "mobile/Axe",
+      "existing governance/IA/GitLab/import/permission journeys"
+    ]
+  },
+  "typecheck": "PASSED",
+  "lint": {
+    "errors": 0,
+    "warnings": 1,
+    "warning": "Existing TanStack Table / React Compiler warning"
+  },
+  "build": "Docker web PASSED",
+  "local": {
+    "url": "http://127.0.0.1:3000/?view=overview",
+    "http": {
+      "login": 200,
+      "live": 200,
+      "ready": 200
+    },
+    "groups": 10,
+    "features": 20,
+    "deliverables": 24,
+    "before": {
+      "programs": 1,
+      "capabilities": 20,
+      "deliverables": 24,
+      "migrations": 21
+    },
+    "after": {
+      "programs": 1,
+      "capabilities": 20,
+      "deliverables": 24,
+      "migrations": 21
+    },
+    "updatedServices": ["web"],
+    "preservedServices": ["db", "worker"],
+    "seedApplied": false,
+    "businessMutationInSmoke": false,
+    "screenshots": [
+      "clarity-local-panorama.png",
+      "clarity-local-collapsed.png",
+      "clarity-local-group.png",
+      "clarity-local-relations.png"
+    ]
+  }
+}

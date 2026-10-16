@@ -1,0 +1,32 @@
+{
+  "asOf": "2026-10-15T23:15:50.928Z",
+  "status": "FAILED",
+  "scope": "isolated local containers; synthetic data; no corporate homologation",
+  "checks": [
+    {
+      "name": "build-images",
+      "status": "PASSED"
+    },
+    {
+      "name": "isolated-postgres",
+      "status": "PASSED"
+    },
+    {
+      "name": "concurrent-migrations",
+      "status": "PASSED"
+    },
+    {
+      "name": "fixtures-and-runtime-grants",
+      "status": "PASSED"
+    },
+    {
+      "name": "web-without-worker",
+      "status": "PASSED"
+    }
+  ],
+  "dockerVersion": "29.3.1",
+  "diagnostic": "{\"phase\":\"after-worker\",\"status\":\"FAILED\",\"errorClass\":\"Error\",\"message\":\"Timeout aguardando /api/health/ready = 200\"}\n",
+  "phase": "separate-worker-and-jobs",
+  "reason": "Etapa não concluída. Não houve homologação externa nem alteração na base operacional.",
+  "cleanup": "COMPLETE"
+}

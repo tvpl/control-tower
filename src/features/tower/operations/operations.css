@@ -1,0 +1,476 @@
+/* Shared operational workflows, with the same tokens in Orange/Grafite/Claro. */
+.page-actions {
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  flex-shrink: 0;
+}
+.page-heading > div:first-child {
+  min-width: 0;
+}
+:root .dialog.operation-dialog {
+  animation: none;
+}
+.operation-dialog .dialog-body {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.operation-dialog .dialog-body > * {
+  flex-shrink: 0;
+}
+:root .app-shell .integration-workspace .ct-metric-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+.operation-dialog h3 {
+  margin: 0;
+  font-size: 16px;
+}
+.operation-dialog p {
+  font-size: 12px;
+  line-height: 1.65;
+}
+.operation-dialog label {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  font-size: 11px;
+  color: var(--secondary);
+  min-width: 0;
+}
+.operation-dialog input:not([type="checkbox"]),
+.operation-dialog select,
+.operation-dialog textarea {
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+}
+.operation-dialog label:has(input[type="checkbox"]) {
+  flex-direction: row;
+  align-items: center;
+}
+.operation-dialog input[type="checkbox"],
+.selection-cell input {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--accent);
+  flex-shrink: 0;
+  margin: 0;
+}
+.batch-context {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--accent-dark);
+}
+.batch-context > svg {
+  flex-shrink: 0;
+  color: var(--accent);
+}
+.batch-context strong {
+  font-size: 16px;
+  color: var(--text);
+}
+.batch-context p {
+  margin: 5px 0 0;
+  color: var(--secondary);
+  overflow-wrap: anywhere;
+}
+.batch-form,
+.batch-form fieldset {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+}
+.batch-form fieldset {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+.batch-field-row {
+  display: grid;
+  grid-template-columns: minmax(150px, 1fr) minmax(180px, 1.5fr) auto 32px;
+  gap: 12px;
+  align-items: end;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+}
+.batch-field-row .batch-clear {
+  align-self: center;
+  white-space: nowrap;
+}
+.batch-shift {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: 18px;
+  align-items: center;
+}
+.batch-shift p {
+  margin: 0;
+  color: var(--secondary);
+}
+.batch-actions,
+.batch-commit {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.batch-actions > span,
+.batch-commit p {
+  color: var(--secondary);
+  font-size: 11px;
+  max-width: 650px;
+}
+.batch-review {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+}
+.batch-review-heading {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding: 15px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+}
+.batch-review-heading > svg {
+  color: var(--accent);
+  flex-shrink: 0;
+}
+.batch-review-heading p {
+  margin: 4px 0 0;
+  color: var(--secondary);
+}
+.batch-diff-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 420px;
+  overflow-y: auto;
+}
+.batch-diff {
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  padding: 14px;
+  min-width: 0;
+}
+.batch-diff > strong {
+  font-size: 12px;
+  overflow-wrap: anywhere;
+}
+.batch-field-diff {
+  display: grid;
+  grid-template-columns: minmax(90px, 0.8fr) minmax(100px, 1fr) 16px minmax(
+      100px,
+      1fr
+    );
+  align-items: center;
+  gap: 10px;
+  padding-top: 12px;
+  font-size: 11px;
+}
+.batch-field-diff > * {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.batch-field-diff > span,
+.batch-field-diff del {
+  color: var(--secondary);
+}
+.batch-field-diff ins {
+  text-decoration: none;
+  color: var(--accent);
+}
+.batch-commit {
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+}
+.deliverable-selection {
+  min-width: 0;
+}
+.selection-toolbar {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px;
+  background: var(--accent-dark);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  margin-bottom: 12px;
+}
+.selection-toolbar > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 11px;
+  color: var(--secondary);
+}
+.selection-toolbar strong {
+  color: var(--accent);
+}
+.selection-actions {
+  display: flex;
+  gap: 7px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+:root .table-wrap .selection-cell {
+  width: 40px;
+  min-width: 40px;
+  padding: 8px 10px;
+  text-align: center;
+}
+.planning-workspace {
+  display: grid;
+  gap: 16px;
+  margin-top: 28px;
+  min-width: 0;
+}
+.planning-focus {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+.planning-focus button {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface);
+  color: var(--secondary);
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 12px;
+}
+.planning-focus button.selected {
+  border-color: var(--accent);
+  background: var(--accent-dark);
+  color: var(--accent);
+}
+.planning-focus strong {
+  font-size: 26px;
+  letter-spacing: -1px;
+}
+.agent-workspace > div:first-child:not([hidden]) {
+  display: grid;
+  gap: 18px;
+}
+.context-agent-intro {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+}
+.context-agent-intro > svg {
+  color: var(--accent);
+  flex-shrink: 0;
+}
+.context-agent-intro p {
+  color: var(--secondary);
+  margin-bottom: 0;
+}
+.context-agent-controls {
+  display: flex;
+  gap: 14px;
+  align-items: end;
+  flex-wrap: wrap;
+}
+.context-agent-controls > label {
+  flex: 1;
+  min-width: 230px;
+}
+.context-agent-metrics {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+.context-agent-metrics article {
+  border: 1px solid var(--line);
+  background: var(--surface);
+  border-radius: 10px;
+  padding: 16px;
+  display: grid;
+  gap: 7px;
+}
+.context-agent-metrics strong {
+  color: var(--accent);
+  font-size: 30px;
+}
+.context-agent-metrics span {
+  font-size: 11px;
+  color: var(--secondary);
+}
+.context-agent-downloads {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.context-agent-report {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 15px;
+}
+.context-agent-report summary,
+.gitlab-csv-panel summary {
+  cursor: pointer;
+  font-size: 12px;
+  color: var(--text);
+}
+.context-agent-report pre {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  font:
+    11px/1.8 var(--font-sans),
+    sans-serif;
+  max-height: 300px;
+  overflow-y: auto;
+  margin-bottom: 0;
+}
+.gitlab-csv-panel {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 15px;
+}
+.gitlab-csv-panel[open] {
+  display: grid;
+  gap: 12px;
+}
+.gitlab-link-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 430px;
+  overflow-y: auto;
+}
+.gitlab-link-row {
+  display: grid;
+  grid-template-columns: minmax(180px, 1.25fr) minmax(180px, 1.5fr) minmax(
+      150px,
+      1fr
+    );
+  align-items: center;
+  gap: 14px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 14px;
+}
+.gitlab-link-source span {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+}
+.gitlab-link-source strong,
+.gitlab-link-source small {
+  overflow-wrap: anywhere;
+}
+.gitlab-link-source strong {
+  color: var(--text);
+  font-size: 12px;
+}
+.gitlab-link-source small {
+  color: var(--secondary);
+  font-size: 10px;
+}
+.gitlab-link-target {
+  white-space: normal;
+  overflow-wrap: anywhere;
+  text-align: left;
+  justify-content: flex-start;
+  min-height: 38px;
+}
+.record-picker-search {
+  flex-direction: row !important;
+  align-items: center;
+}
+.record-picker-list {
+  display: grid;
+  gap: 8px;
+  max-height: 430px;
+  overflow-y: auto;
+}
+.record-picker-result {
+  display: grid;
+  gap: 6px;
+  text-align: left;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--text);
+}
+.record-picker-result:hover {
+  border-color: var(--accent);
+}
+.record-picker-result span {
+  font-size: 10px;
+  color: var(--secondary);
+}
+.record-picker-result strong {
+  font-size: 12px;
+  overflow-wrap: anywhere;
+}
+@media (max-width: 800px) {
+  :root .app-shell .integration-workspace .ct-metric-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .batch-field-row {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+  .gitlab-link-row {
+    grid-template-columns: minmax(0, 1fr) minmax(140px, 0.8fr);
+  }
+  .gitlab-link-source {
+    grid-column: 1 / -1;
+  }
+}
+@media (max-width: 640px) {
+  .page-heading {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .page-actions {
+    width: 100%;
+    justify-content: flex-start;
+  }
+  .batch-field-row,
+  .batch-shift,
+  .gitlab-link-row {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .gitlab-link-source {
+    grid-column: auto;
+  }
+  .batch-field-diff {
+    grid-template-columns: minmax(0, 1fr) 16px minmax(0, 1fr);
+  }
+  .batch-field-diff > span {
+    grid-column: 1 / -1;
+  }
+  .planning-focus,
+  .context-agent-metrics {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .context-agent-controls > label {
+    min-width: 0;
+    flex: 1 1 100%;
+  }
+  .batch-context {
+    align-items: flex-start;
+  }
+  .selection-actions .button {
+    flex: 1 1 auto;
+  }
+  .context-agent-downloads > button {
+    flex: 1 1 100%;
+  }
+}

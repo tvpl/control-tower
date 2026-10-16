@@ -1,0 +1,366 @@
+/* Orange is a visual theme. Product identity and business rules remain shared. */
+:root[data-theme="orange"] {
+  color-scheme: light;
+  --bg: #f7f5f2;
+  --surface: #fff;
+  --raised: #f3f1ee;
+  --surface-hover: #fff0e3;
+  --text: #272321;
+  --secondary: #56504b;
+  --muted: #70665f;
+  --line: #e5ded7;
+  --line-soft: #eee8e1;
+  --accent: #b33d00;
+  --accent-strong: #ed6200;
+  --accent-dark: #ffead8;
+  --amber: #975400;
+  --amber-soft: #fff2d7;
+  --red: #ba2941;
+  --red-soft: #fff0f2;
+  --blue: #285c9b;
+  --rail: #33251e;
+  --shadow: 0 20px 70px #31200e20;
+  --radius: 16px;
+  --chart-hold: #a77d40;
+  --chart-reopened: #9872bb;
+  --chart-not-started: #c9c1ba;
+  --chart-active: #ffad68;
+  --chart-blocked: #ba2941;
+  --chart-done: #ed6200;
+  --chart-cancelled: #85807b;
+}
+.theme-picker {
+  width: auto;
+  max-width: 105px;
+  min-height: 34px;
+  font-size: 12px;
+  margin: 0;
+  padding: 5px 8px;
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--text);
+}
+:root[data-theme="orange"] .rail {
+  background: var(--rail);
+  border-right: 0;
+  width: 78px;
+  padding: 20px 12px;
+}
+:root[data-theme="orange"] .brand-symbol {
+  background: #f56a06;
+  color: #33200d;
+  border-color: #ff9145;
+  border-radius: 13px;
+  width: 46px;
+  height: 46px;
+}
+:root[data-theme="orange"] .rail-divider {
+  background: #6b5143;
+}
+:root[data-theme="orange"] .rail nav {
+  overflow-y: auto;
+  scrollbar-width: thin;
+  min-height: 0;
+  gap: 5px;
+}
+:root[data-theme="orange"] .rail-item {
+  color: #e3d5cd;
+  width: 46px;
+  height: 41px;
+  min-height: 41px;
+  border-radius: 11px;
+  flex-shrink: 0;
+}
+:root[data-theme="orange"] .rail-item:hover {
+  background: #543a2c;
+  color: #fff;
+}
+:root[data-theme="orange"] .rail-item.active {
+  color: #35210f;
+  background: #ff8a35;
+}
+:root[data-theme="orange"] .rail-item.active i {
+  background: #ff8a35;
+}
+:root[data-theme="orange"] .rail-item > span {
+  display: none;
+}
+:root[data-theme="orange"] .rail-bottom {
+  padding-top: 12px;
+}
+:root[data-theme="orange"] .avatar {
+  background: #543a2c;
+  color: #ffcca6;
+  border-color: #8f654a;
+}
+:root[data-theme="orange"] .workspace {
+  margin-left: 78px;
+  width: calc(100% - 78px);
+}
+:root[data-theme="orange"] .topbar {
+  background: var(--surface);
+  border-top: 4px solid #ff710b;
+  border-bottom: 1px solid var(--line);
+  height: 70px;
+  padding: 0 28px;
+}
+:root[data-theme="orange"] .topbar .wordmark {
+  color: var(--text);
+}
+:root[data-theme="orange"] .topbar .wordmark span {
+  color: var(--accent);
+}
+:root[data-theme="orange"] .program-picker {
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 6px 10px;
+}
+:root[data-theme="orange"] .program-icon {
+  background: var(--accent-dark);
+  color: var(--accent);
+  border: 0;
+}
+:root[data-theme="orange"] .search-trigger {
+  background: var(--bg);
+  border-radius: 9px;
+}
+:root[data-theme="orange"] .demo-banner {
+  background: #fff4e8;
+  border-bottom: 1px solid #f4dfc9;
+  color: #785437;
+}
+:root[data-theme="orange"] main#main-content {
+  max-width: none;
+  padding: 22px 28px 0;
+}
+:root[data-theme="orange"] .page-heading h1 {
+  font-size: 32px;
+  font-weight: 650;
+}
+:root[data-theme="orange"] .page-heading p {
+  font-size: 13px;
+}
+:root[data-theme="orange"] .eyebrow {
+  color: var(--accent);
+}
+:root[data-theme="orange"] .context-bar {
+  padding: 10px 12px;
+  margin-bottom: 18px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface);
+}
+:root[data-theme="orange"] .context-bar.context-hidden {
+  display: none;
+}
+:root[data-theme="orange"] .button {
+  border-radius: 10px;
+}
+:root[data-theme="orange"] .button.primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+:root[data-theme="orange"] .button.primary:hover {
+  background: #9c3500;
+}
+:root[data-theme="orange"] .ct-mode button[aria-pressed="true"] {
+  background: var(--accent);
+  color: #fff;
+}
+:root[data-theme="orange"] .ct-signal {
+  background: #ff791c;
+  border-color: #f26b0d;
+  color: #35200f;
+  box-shadow: 0 8px 26px #d9630920;
+}
+:root[data-theme="orange"] .ct-signal-copy .ct-overline {
+  color: #552c0c;
+}
+:root[data-theme="orange"] .ct-signal p {
+  color: #4f2d15;
+}
+:root[data-theme="orange"] .ct-signal button {
+  background: #fff4e6;
+  color: #6b2800;
+  border-color: #ffc698;
+}
+:root[data-theme="orange"] .ct-signal-progress {
+  border-left-color: #b44a0a70;
+}
+:root[data-theme="orange"] .ct-signal-progress > div {
+  background: #9e3c1050;
+}
+:root[data-theme="orange"] .ct-signal-progress i {
+  background: #4e2913;
+}
+:root[data-theme="orange"] .ct-kpi {
+  border-top: 3px solid var(--accent-strong);
+  box-shadow: 0 3px 14px #39200d06;
+}
+:root[data-theme="orange"] .ct-kpi-amber {
+  border-top-color: var(--red);
+}
+:root[data-theme="orange"] .ct-kpi-blue {
+  border-top-color: var(--blue);
+}
+:root[data-theme="orange"] .ct-kpi > svg {
+  padding: 10px;
+  box-sizing: content-box;
+  background: var(--accent-dark);
+  border-radius: 12px;
+}
+:root[data-theme="orange"] .ct-kpi-amber > svg {
+  background: var(--red-soft);
+  color: var(--red);
+}
+:root[data-theme="orange"] .ct-panel {
+  box-shadow: 0 4px 18px #39200d05;
+}
+:root[data-theme="orange"] .ct-panel > header {
+  background: #fffaf5;
+}
+:root[data-theme="orange"] .ct-ring-base {
+  stroke: #ffead8;
+}
+:root[data-theme="orange"] .ct-project-row {
+  background: #ffead8;
+  color: #713503;
+}
+:root[data-theme="orange"] .ct-feature-row.selected {
+  background: #fff0e3;
+  box-shadow: inset 3px 0 var(--accent-strong);
+}
+:root[data-theme="orange"] .ct-flow-node {
+  border-radius: 13px;
+  border-top: 4px solid var(--accent-strong);
+  box-shadow: 0 4px 16px #39200d0c;
+}
+:root[data-theme="orange"] .ct-flow-node.blocked {
+  border-color: var(--red);
+}
+:root[data-theme="orange"] .ct-graph {
+  background: #fffcf8;
+}
+:root[data-theme="orange"] .project-symbol,
+:root[data-theme="orange"] .priority-rank {
+  background: var(--accent-dark);
+  border-color: #f3d1b3;
+  color: var(--accent);
+}
+:root[data-theme="orange"] .project-card > header {
+  border-top: 4px solid var(--accent-strong);
+}
+:root[data-theme="orange"] .project-stats {
+  background: #fff5eb;
+}
+:root[data-theme="orange"] .priority-intro {
+  background: #fff3e7;
+  border-top: 3px solid var(--accent-strong);
+}
+:root[data-theme="orange"] .dialog {
+  border-radius: 18px;
+  border-color: var(--line);
+}
+:root[data-theme="orange"] .dialog.drawer {
+  border-radius: 18px 0 0 18px;
+}
+:root[data-theme="orange"] .dialog-header {
+  background: #fff3e7;
+  border-top: 4px solid var(--accent-strong);
+}
+:root[data-theme="orange"] .overlay {
+  background: #24181070;
+  backdrop-filter: blur(5px);
+}
+:root[data-theme="orange"] .table-wrap {
+  border-radius: 12px;
+}
+:root[data-theme="orange"] .table-wrap thead {
+  background: #fff5eb;
+}
+:root[data-theme="orange"] .react-flow__controls-button {
+  background: var(--surface);
+  fill: var(--text);
+  border-color: var(--line);
+}
+:root[data-theme="orange"] .react-flow__attribution {
+  background: var(--surface);
+}
+:root[data-theme="orange"] .react-flow__attribution a {
+  color: var(--muted);
+}
+@media (max-width: 1200px) {
+  :root[data-theme="orange"] .workspace-live,
+  :root[data-theme="orange"] .topbar-divider,
+  :root[data-theme="orange"] .search-trigger kbd,
+  :root[data-theme="orange"] .program-label {
+    display: none;
+  }
+  :root[data-theme="orange"] .program-picker select {
+    max-width: 200px;
+  }
+}
+@media (max-width: 640px) {
+  :root[data-theme="orange"] .rail {
+    width: 224px;
+    transform: translateX(-100%);
+    align-items: stretch;
+    padding: 18px;
+  }
+  :root[data-theme="orange"] .rail.mobile-open {
+    transform: translateX(0);
+  }
+  :root[data-theme="orange"] .rail.mobile-open .rail-item {
+    width: 100%;
+    justify-content: flex-start;
+    padding: 0 12px;
+  }
+  :root[data-theme="orange"] .rail.mobile-open .rail-item > span {
+    display: block;
+  }
+  :root[data-theme="orange"] .workspace {
+    width: 100%;
+    margin-left: 0;
+  }
+  :root[data-theme="orange"] .topbar {
+    height: 64px;
+    padding: 0 12px;
+  }
+  :root[data-theme="orange"] .topbar-brand {
+    gap: 6px;
+    min-width: 0;
+  }
+  :root[data-theme="orange"] .program-picker {
+    padding: 4px 6px;
+  }
+  :root[data-theme="orange"] .program-picker select {
+    max-width: 128px;
+    font-size: 11px;
+  }
+  :root[data-theme="orange"] .topbar .wordmark,
+  :root[data-theme="orange"] .topbar .slash,
+  :root[data-theme="orange"] .search-trigger {
+    display: none;
+  }
+  :root[data-theme="orange"] .topbar-actions {
+    gap: 3px;
+  }
+  .topbar .theme-picker {
+    display: block;
+    max-width: 78px;
+    font-size: 11px;
+    padding: 4px;
+  }
+  :root[data-theme="orange"] main#main-content {
+    padding: 18px 12px 0;
+  }
+  :root[data-theme="orange"] .page-heading h1 {
+    font-size: 28px;
+  }
+  :root[data-theme="orange"] .ct-signal-progress {
+    border-left: 0;
+    border-top-color: #b44a0a70;
+  }
+}

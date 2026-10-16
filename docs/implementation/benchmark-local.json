@@ -1,0 +1,24 @@
+{
+  "asOf": "2026-10-15T10:59:13.612Z",
+  "environment": "PGlite memory / Node local; synthetic only, no concurrent users or network",
+  "deliverables": 5000,
+  "capabilities": 500,
+  "snapshots": 0,
+  "state": {
+    "samples": 10,
+    "p50Ms": 519,
+    "p95Ms": 546,
+    "maxMs": 546
+  },
+  "page50": {
+    "samples": 10,
+    "p50Ms": 6,
+    "p95Ms": 6,
+    "maxMs": 6
+  },
+  "stateBytes": 6867666,
+  "limitations": [
+    "Medição local da aplicação; não certifica PostgreSQL servidor, rede, concorrência, HA ou SLA.",
+    "Carga de snapshots históricos precisa de ensaio separado."
+  ]
+}

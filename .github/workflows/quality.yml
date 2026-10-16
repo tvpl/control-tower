@@ -1,0 +1,60 @@
+name: Quality
+on: [push, pull_request]
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    env:
+      AUTH_SECRET: ci-ephemeral-test-session-secret-32-characters
+      AUTH_MODE: local
+      APP_ORIGIN: http://127.0.0.1:3000
+      PGLITE_DATA_DIR: ./data/ci
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm audit --omit=dev --audit-level=high
+      - run: npm audit --audit-level=critical
+      - run: npm run typecheck
+      - run: npm run lint
+      - run: npm test
+      - run: npm run db:setup
+      - run: npx playwright install --with-deps chromium
+      - name: E2E and accessibility
+        run: |
+          npm run dev > /tmp/tower-dev.log 2>&1 &
+          tower_server_pid=$!
+          trap 'kill "$tower_server_pid" 2>/dev/null || true' EXIT
+          for attempt in $(seq 1 60); do
+            if curl -fsS http://127.0.0.1:3000/login > /dev/null; then break; fi
+            sleep 1
+          done
+          npm run test:e2e
+      - run: npm run build
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: test-evidence
+          path: |
+            playwright-report
+            test-results
+            docs/implementation/*.png
+  infrastructure:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: PostgreSQL, standalone, worker and encrypted restore
+        run: npm run test:infra
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: infrastructure-verification
+          path: docs/implementation/infrastructure-verification.json

@@ -1,0 +1,71 @@
+{
+  "checkedAt": "2026-10-16T14:20:16.701385+00:00",
+  "status": "PASSED",
+  "scope": "visual management increment; local Docker; isolated synthetic E2E",
+  "tests": {
+    "passed": 177,
+    "files": 26,
+    "seconds": 16.45
+  },
+  "e2e": {
+    "passed": 13,
+    "seconds": 55.7,
+    "project": "mct-ui-qa-b7e28008",
+    "cleanup": "COMPLETE",
+    "coverage": [
+      "nonzero overdue signal",
+      "feature search and situation filter",
+      "feature to deliverable to detail",
+      "focus and return",
+      "expanded map and 20 minimap nodes",
+      "dependency inspection",
+      "mosaic/mobile and Axe",
+      "portfolio",
+      "delivery horizon",
+      "matrix/map switch",
+      "existing governance/IA/GitLab/import/permission regression"
+    ]
+  },
+  "typecheck": "PASSED",
+  "lint": {
+    "errors": 0,
+    "warnings": 1,
+    "warning": "Known TanStack Table mutable API / React Compiler"
+  },
+  "dockerBuild": "web PASSED",
+  "infrastructure": {
+    "repeatedInThisIncrement": false,
+    "previousReport": "infrastructure-verification.json",
+    "reason": "No schema, worker, jobs or backup changes"
+  },
+  "local": {
+    "url": "http://127.0.0.1:3000/?view=overview",
+    "http": {
+      "login": 200,
+      "live": 200,
+      "ready": 200
+    },
+    "updatedServices": ["web"],
+    "preservedServices": ["db", "worker"],
+    "before": {
+      "programs": 1,
+      "capabilities": 20,
+      "deliverables": 24,
+      "migrations": 21
+    },
+    "after": {
+      "programs": 1,
+      "capabilities": 20,
+      "deliverables": 24,
+      "migrations": 21
+    },
+    "seedApplied": false,
+    "businessMutationInSmoke": false,
+    "pageErrors": 0,
+    "screenshots": [
+      "management-local-home.png",
+      "management-local-map.png",
+      "management-local-expanded.png"
+    ]
+  }
+}

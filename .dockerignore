@@ -1,0 +1,13 @@
+node_modules
+.next
+.env*
+data
+test-results
+playwright-report
+.git
+docs/implementation/*.png
+
+dist
+
+secrets
+compose.gitlab.yaml

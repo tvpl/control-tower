@@ -1,0 +1,22 @@
+{
+  "asOf": "2026-10-15T17:21:37.996Z",
+  "beforeMigrations": 11,
+  "afterMigrations": 20,
+  "tablesCompared": 34,
+  "originalRows": 267,
+  "differences": [],
+  "inventory": [
+    {
+      "table": "delivery.deliverables",
+      "count": 24
+    },
+    {
+      "table": "portfolio.capabilities",
+      "count": 20
+    },
+    {
+      "table": "portfolio.programs",
+      "count": 1
+    }
+  ]
+}

@@ -1,0 +1,475 @@
+openapi: 3.1.0
+info:
+  title: Modernization Control Tower API
+  version: 1.0.0-draft
+  description: Contrato inicial de API. Endpoints restantes serão expandidos por épico.
+servers:
+  - url: /api/v1
+security:
+  - bearerAuth: []
+tags:
+  - name: Programs
+  - name: Capabilities
+  - name: Deliverables
+  - name: Dependencies
+  - name: Readiness
+  - name: Reporting
+paths:
+  /programs/{programId}/overview:
+    get:
+      tags: [Programs]
+      operationId: getProgramOverview
+      parameters:
+        - $ref: '#/components/parameters/ProgramId'
+      responses:
+        '200':
+          description: Visão executiva com qualidade e data dos dados
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Overview' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+  /programs/{programId}/capability-map:
+    get:
+      tags: [Capabilities]
+      operationId: getCapabilityMap
+      parameters:
+        - $ref: '#/components/parameters/ProgramId'
+        - name: domainId
+          in: query
+          schema: { type: string, format: uuid }
+        - name: releaseId
+          in: query
+          schema: { type: string, format: uuid }
+        - name: includeUnknown
+          in: query
+          schema: { type: boolean, default: true }
+      responses:
+        '200':
+          description: Matriz por capacidade e camada
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/CapabilityMap' }
+  /capabilities:
+    get:
+      tags: [Capabilities]
+      operationId: listCapabilities
+      parameters:
+        - name: programId
+          in: query
+          required: true
+          schema: { type: string, format: uuid }
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Cursor'
+      responses:
+        '200':
+          description: Capacidades paginadas
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [items]
+                properties:
+                  items: { type: array, items: { $ref: '#/components/schemas/Capability' } }
+                  nextCursor: { type: [string, 'null'] }
+    post:
+      tags: [Capabilities]
+      operationId: createCapability
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/CapabilityInput' }
+      responses:
+        '201':
+          description: Criada
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Capability' }
+        '422': { $ref: '#/components/responses/ValidationError' }
+  /deliverables:
+    get:
+      tags: [Deliverables]
+      operationId: listDeliverables
+      parameters:
+        - name: programId
+          in: query
+          required: true
+          schema: { type: string, format: uuid }
+        - name: workstreamId
+          in: query
+          schema: { type: string, format: uuid }
+        - name: deliveryStage
+          in: query
+          schema: { $ref: '#/components/schemas/DeliveryStage' }
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Cursor'
+      responses:
+        '200':
+          description: Entregáveis paginados
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [items]
+                properties:
+                  items: { type: array, items: { $ref: '#/components/schemas/Deliverable' } }
+                  nextCursor: { type: [string, 'null'] }
+    post:
+      tags: [Deliverables]
+      operationId: createDeliverable
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/DeliverableInput' }
+      responses:
+        '201':
+          description: Criado
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Deliverable' }
+        '422': { $ref: '#/components/responses/ValidationError' }
+  /deliverables/{deliverableId}:
+    get:
+      tags: [Deliverables]
+      operationId: getDeliverable
+      parameters:
+        - $ref: '#/components/parameters/DeliverableId'
+      responses:
+        '200':
+          description: Detalhe
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Deliverable' }
+    patch:
+      tags: [Deliverables]
+      operationId: patchDeliverable
+      parameters:
+        - $ref: '#/components/parameters/DeliverableId'
+        - name: If-Match
+          in: header
+          required: true
+          schema: { type: string }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              minProperties: 1
+              properties:
+                forecastDate: { type: [string, 'null'], format: date }
+                health: { type: string, enum: [UNKNOWN, ON_TRACK, AT_RISK, CRITICAL] }
+                changeReason: { type: string, minLength: 3 }
+      responses:
+        '200':
+          description: Atualizado
+          headers:
+            ETag: { schema: { type: string } }
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Deliverable' }
+        '409': { $ref: '#/components/responses/Conflict' }
+        '412': { $ref: '#/components/responses/Conflict' }
+  /deliverables/{deliverableId}/transitions:
+    post:
+      tags: [Deliverables]
+      operationId: transitionDeliverable
+      parameters:
+        - $ref: '#/components/parameters/DeliverableId'
+        - name: Idempotency-Key
+          in: header
+          required: true
+          schema: { type: string }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [targetStage, reason, expectedVersion]
+              properties:
+                targetStage: { $ref: '#/components/schemas/DeliveryStage' }
+                reason: { type: string, minLength: 3 }
+                expectedVersion: { type: integer, minimum: 1 }
+      responses:
+        '200':
+          description: Transição aplicada
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Deliverable' }
+        '409': { $ref: '#/components/responses/Conflict' }
+  /dependencies:
+    get:
+      tags: [Dependencies]
+      operationId: listDependencies
+      parameters:
+        - name: programId
+          in: query
+          required: true
+          schema: { type: string, format: uuid }
+      responses:
+        '200':
+          description: Dependências
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: '#/components/schemas/Dependency' }
+    post:
+      tags: [Dependencies]
+      operationId: createDependency
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/DependencyInput' }
+      responses:
+        '201':
+          description: Dependência criada
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Dependency' }
+  /releases/{releaseId}/readiness:
+    get:
+      tags: [Readiness]
+      operationId: getReleaseReadiness
+      parameters:
+        - name: releaseId
+          in: path
+          required: true
+          schema: { type: string, format: uuid }
+      responses:
+        '200':
+          description: Readiness de release
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/ReleaseReadiness' }
+  /gate-assessments:
+    post:
+      tags: [Readiness]
+      operationId: assessGate
+      parameters:
+        - name: Idempotency-Key
+          in: header
+          required: true
+          schema: { type: string }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/GateAssessmentInput' }
+      responses:
+        '201':
+          description: Avaliação registrada
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/GateAssessment' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+  /programs/{programId}/snapshots:
+    post:
+      tags: [Reporting]
+      operationId: createSnapshot
+      parameters:
+        - $ref: '#/components/parameters/ProgramId'
+        - name: Idempotency-Key
+          in: header
+          required: true
+          schema: { type: string }
+      responses:
+        '201':
+          description: Snapshot criado
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Snapshot' }
+  /programs/{programId}/reports/weekly:
+    get:
+      tags: [Reporting]
+      operationId: getWeeklyReport
+      parameters:
+        - $ref: '#/components/parameters/ProgramId'
+        - name: snapshotId
+          in: query
+          required: true
+          schema: { type: string, format: uuid }
+      responses:
+        '200':
+          description: Relatório reproduzível
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/WeeklyReport' }
+components:
+  securitySchemes:
+    bearerAuth: { type: http, scheme: bearer, bearerFormat: JWT }
+  parameters:
+    ProgramId:
+      name: programId
+      in: path
+      required: true
+      schema: { type: string, format: uuid }
+    DeliverableId:
+      name: deliverableId
+      in: path
+      required: true
+      schema: { type: string, format: uuid }
+    Limit:
+      name: limit
+      in: query
+      schema: { type: integer, minimum: 1, maximum: 200, default: 50 }
+    Cursor:
+      name: cursor
+      in: query
+      schema: { type: string }
+  responses:
+    Unauthorized: { description: Token ausente ou inválido }
+    Forbidden: { description: Usuário sem alçada }
+    Conflict: { description: Versão conflitante ou regra de transição violada }
+    ValidationError: { description: Dados inválidos }
+  schemas:
+    DeliveryStage:
+      type: string
+      enum: [IDENTIFIED, SPECIFICATION, DEVELOPMENT, SIT, UAT, PRODUCTION]
+    CapabilityInput:
+      type: object
+      required: [programId, domainId, code, name]
+      properties:
+        programId: { type: string, format: uuid }
+        domainId: { type: string, format: uuid }
+        code: { type: string, minLength: 1 }
+        name: { type: string, minLength: 2 }
+        criticality: { type: string, enum: [LOW, MEDIUM, HIGH, CRITICAL] }
+        inventoryMaturity: { type: string, enum: [IDENTIFIED, STRUCTURED, VALIDATED, GOVERNED] }
+    Capability:
+      allOf:
+        - $ref: '#/components/schemas/CapabilityInput'
+        - type: object
+          required: [id, version]
+          properties:
+            id: { type: string, format: uuid }
+            version: { type: integer }
+    DeliverableInput:
+      type: object
+      required: [programId, code, name, layer, deliverableType]
+      properties:
+        programId: { type: string, format: uuid }
+        workstreamId: { type: [string, 'null'], format: uuid }
+        capabilityIds: { type: array, items: { type: string, format: uuid } }
+        code: { type: string }
+        name: { type: string }
+        layer: { type: string }
+        deliverableType: { type: string }
+        forecastDate: { type: [string, 'null'], format: date }
+        ownerId: { type: [string, 'null'], format: uuid }
+    Deliverable:
+      allOf:
+        - $ref: '#/components/schemas/DeliverableInput'
+        - type: object
+          required: [id, version, executionStatus, deliveryStage, health]
+          properties:
+            id: { type: string, format: uuid }
+            version: { type: integer }
+            executionStatus: { type: string, enum: [NOT_STARTED, IN_PROGRESS, DONE, BLOCKED, ON_HOLD, CANCELLED, REOPENED] }
+            deliveryStage: { $ref: '#/components/schemas/DeliveryStage' }
+            health: { type: string, enum: [UNKNOWN, ON_TRACK, AT_RISK, CRITICAL] }
+    DependencyInput:
+      type: object
+      required: [programId, sourceNodeId, targetNodeId, dependencyType]
+      properties:
+        programId: { type: string, format: uuid }
+        sourceNodeId: { type: string, format: uuid }
+        targetNodeId: { type: string, format: uuid }
+        dependencyType: { type: string, enum: [BLOCKS, REQUIRES, INTEGRATES_WITH, PRECEDES] }
+        criticality: { type: string, enum: [LOW, MEDIUM, HIGH, CRITICAL] }
+        neededBy: { type: [string, 'null'], format: date }
+        description: { type: string }
+    Dependency:
+      allOf:
+        - $ref: '#/components/schemas/DependencyInput'
+        - type: object
+          required: [id, status]
+          properties:
+            id: { type: string, format: uuid }
+            status: { type: string, enum: [OPEN, BLOCKED, RESOLVED, WAIVED] }
+    GateAssessmentInput:
+      type: object
+      required: [programId, subjectNodeId, gateDefinitionId, result, expectedVersion]
+      properties:
+        programId: { type: string, format: uuid }
+        subjectNodeId: { type: string, format: uuid }
+        gateDefinitionId: { type: string, format: uuid }
+        result: { type: string, enum: [PENDING, PASSED, FAILED, NOT_APPLICABLE, EXCEPTION_APPROVED] }
+        expectedVersion: { type: integer, minimum: 1 }
+        justification: { type: string }
+        evidenceIds: { type: array, items: { type: string, format: uuid } }
+    GateAssessment:
+      allOf:
+        - $ref: '#/components/schemas/GateAssessmentInput'
+        - type: object
+          required: [id, assessedAt]
+          properties:
+            id: { type: string, format: uuid }
+            assessedAt: { type: string, format: date-time }
+            assessedBy: { type: string, format: uuid }
+    CapabilityMap:
+      type: object
+      required: [programId, asOf, layers, capabilities]
+      properties:
+        programId: { type: string, format: uuid }
+        asOf: { type: string, format: date-time }
+        layers: { type: array, items: { type: string } }
+        capabilities:
+          type: array
+          items:
+            type: object
+            required: [id, code, name, cells]
+            properties:
+              id: { type: string, format: uuid }
+              code: { type: string }
+              name: { type: string }
+              cells:
+                type: array
+                items:
+                  type: object
+                  required: [layer, status, total, accepted, blocked, unknown]
+                  properties:
+                    layer: { type: string }
+                    status: { type: string, enum: [NOT_ASSESSED, NOT_APPLICABLE, NOT_STARTED, IN_PROGRESS, BLOCKED, UAT, DONE] }
+                    total: { type: integer }
+                    accepted: { type: integer }
+                    blocked: { type: integer }
+                    unknown: { type: integer }
+    Overview:
+      type: object
+      required: [programId, asOf, metrics]
+      properties:
+        programId: { type: string, format: uuid }
+        asOf: { type: string, format: date-time }
+        formulaVersion: { type: string }
+        metrics: { type: object, additionalProperties: true }
+        dataQuality: { type: object, additionalProperties: true }
+    ReleaseReadiness:
+      type: object
+      required: [releaseId, status, blockingGates]
+      properties:
+        releaseId: { type: string, format: uuid }
+        status: { type: string, enum: [NOT_ASSESSED, NOT_READY, READY_WITH_EXCEPTIONS, READY] }
+        blockingGates: { type: integer }
+        assessedGates: { type: integer }
+        totalApplicableGates: { type: integer }
+    Snapshot:
+      type: object
+      required: [id, programId, asOf, formulaVersion, payloadHash]
+      properties:
+        id: { type: string, format: uuid }
+        programId: { type: string, format: uuid }
+        asOf: { type: string, format: date-time }
+        formulaVersion: { type: string }
+        payloadHash: { type: string }
+    WeeklyReport:
+      type: object
+      required: [snapshotId, summary, risks, decisions]
+      properties:
+        snapshotId: { type: string, format: uuid }
+        summary: { type: string }
+        risks: { type: array, items: { type: object, additionalProperties: true } }
+        decisions: { type: array, items: { type: object, additionalProperties: true } }

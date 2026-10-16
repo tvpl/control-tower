@@ -1,0 +1,15 @@
+node_modules/
+.next/
+.env*
+!.env.example
+data/
+test-results/
+playwright-report/
+*.tsbuildinfo
+.DS_Store
+
+dist/
+
+# Local connector credentials
+secrets/
+compose.gitlab.yaml

@@ -1,0 +1,83 @@
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: control_tower
+      POSTGRES_USER: tower
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Configure POSTGRES_PASSWORD}
+    ports:
+      - '127.0.0.1:5432:5432'
+    volumes:
+      - tower_pg:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U tower -d control_tower']
+      interval: 5s
+      timeout: 3s
+      retries: 12
+  migrate:
+    build:
+      context: .
+      target: build
+    command: ['npm', 'run', 'db:migrate']
+    environment:
+      DATABASE_URL: postgres://tower:${POSTGRES_PASSWORD}@db:5432/control_tower
+    depends_on:
+      db:
+        condition: service_healthy
+  worker:
+    build:
+      context: .
+      target: worker
+    environment:
+      DATABASE_URL: postgres://tower:${POSTGRES_PASSWORD}@db:5432/control_tower
+      AUTH_SECRET: ${AUTH_SECRET:?Configure AUTH_SECRET}
+      AUTH_MODE: oidc
+      MCT_CONNECTOR_JIRA_TOKEN: ${MCT_CONNECTOR_JIRA_TOKEN:-}
+      MCT_CONNECTOR_ADO_TOKEN: ${MCT_CONNECTOR_ADO_TOKEN:-}
+      MCT_CONNECTOR_GITHUB_TOKEN: ${MCT_CONNECTOR_GITHUB_TOKEN:-}
+      MCT_CONNECTOR_GITLAB_TOKEN: ${MCT_CONNECTOR_GITLAB_TOKEN:-}
+      MCT_CONNECTOR_CONFLUENCE_TOKEN: ${MCT_CONNECTOR_CONFLUENCE_TOKEN:-}
+      MCT_CONNECTOR_CATALOGUE_TOKEN: ${MCT_CONNECTOR_CATALOGUE_TOKEN:-}
+      MCT_CONNECTOR_WEBHOOK_SECRET: ${MCT_CONNECTOR_WEBHOOK_SECRET:-}
+      MCT_CONNECTOR_ALLOWED_HOSTS: ${MCT_CONNECTOR_ALLOWED_HOSTS:-}
+      MCT_CONNECTOR_ALLOW_PRIVATE: ${MCT_CONNECTOR_ALLOW_PRIVATE:-false}
+      MCT_RETENTION_ENABLED: ${MCT_RETENTION_ENABLED:-false}
+      MCT_TRANSIENT_RETENTION_DAYS: ${MCT_TRANSIENT_RETENTION_DAYS:-30}
+    depends_on:
+      db:
+        condition: service_healthy
+      migrate:
+        condition: service_completed_successfully
+    restart: unless-stopped
+  web:
+    build:
+      context: .
+      target: web
+    ports:
+      - '127.0.0.1:3000:3000'
+    environment:
+      DATABASE_URL: postgres://tower:${POSTGRES_PASSWORD}@db:5432/control_tower
+      AUTH_SECRET: ${AUTH_SECRET:?Configure AUTH_SECRET}
+      AUTH_MODE: oidc
+      APP_ORIGIN: ${APP_ORIGIN:-http://127.0.0.1:3000}
+      OIDC_ISSUER: ${OIDC_ISSUER:-}
+      OIDC_CLIENT_ID: ${OIDC_CLIENT_ID:-}
+      OIDC_CLIENT_SECRET: ${OIDC_CLIENT_SECRET:-}
+      MCT_CONNECTOR_JIRA_TOKEN: ${MCT_CONNECTOR_JIRA_TOKEN:-}
+      MCT_CONNECTOR_ADO_TOKEN: ${MCT_CONNECTOR_ADO_TOKEN:-}
+      MCT_CONNECTOR_GITHUB_TOKEN: ${MCT_CONNECTOR_GITHUB_TOKEN:-}
+      MCT_CONNECTOR_GITLAB_TOKEN: ${MCT_CONNECTOR_GITLAB_TOKEN:-}
+      MCT_CONNECTOR_CONFLUENCE_TOKEN: ${MCT_CONNECTOR_CONFLUENCE_TOKEN:-}
+      MCT_CONNECTOR_CATALOGUE_TOKEN: ${MCT_CONNECTOR_CATALOGUE_TOKEN:-}
+      MCT_CONNECTOR_WEBHOOK_SECRET: ${MCT_CONNECTOR_WEBHOOK_SECRET:-}
+      MCT_CONNECTOR_ALLOWED_HOSTS: ${MCT_CONNECTOR_ALLOWED_HOSTS:-}
+      MCT_CONNECTOR_ALLOW_PRIVATE: ${MCT_CONNECTOR_ALLOW_PRIVATE:-false}
+      MCT_AI_ENDPOINT: ${MCT_AI_ENDPOINT:-}
+      MCT_AI_TOKEN: ${MCT_AI_TOKEN:-}
+    depends_on:
+      db:
+        condition: service_healthy
+      migrate:
+        condition: service_completed_successfully
+volumes:
+  tower_pg:

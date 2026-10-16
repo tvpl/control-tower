@@ -1,0 +1,92 @@
+{
+  "_notice": "DADOS 100% FICTÍCIOS — não são informações reais do programa",
+  "program": {
+    "code": "ACQ-MOD",
+    "name": "Modernização Adquirência (DEMO)"
+  },
+  "domains": [
+    {
+      "code": "AUT",
+      "name": "Autorização",
+      "inventoryMaturity": "IDENTIFIED"
+    },
+    {
+      "code": "CAD",
+      "name": "Credenciamento/Cadastro",
+      "inventoryMaturity": "STRUCTURED"
+    },
+    {
+      "code": "LIQ",
+      "name": "Liquidação",
+      "inventoryMaturity": "IDENTIFIED"
+    },
+    {
+      "code": "CON",
+      "name": "Conciliação",
+      "inventoryMaturity": "IDENTIFIED"
+    },
+    {
+      "code": "POR",
+      "name": "Canais e Portais",
+      "inventoryMaturity": "IDENTIFIED"
+    }
+  ],
+  "workstreams": [
+    {
+      "code": "INT",
+      "name": "Integrações"
+    },
+    {
+      "code": "CORE",
+      "name": "Backend/Core"
+    },
+    {
+      "code": "WEB",
+      "name": "Canais"
+    },
+    {
+      "code": "INFRA",
+      "name": "Infraestrutura"
+    }
+  ],
+  "capabilities": [
+    {
+      "code": "AUT-001",
+      "domainCode": "AUT",
+      "name": "Autorizar transação",
+      "criticality": "CRITICAL"
+    },
+    {
+      "code": "CAD-001",
+      "domainCode": "CAD",
+      "name": "Cadastrar estabelecimento",
+      "criticality": "HIGH"
+    }
+  ],
+  "deliverables": [
+    {
+      "code": "AUT-023",
+      "name": "Integração com autorizador",
+      "layer": "PARTNER",
+      "workstreamCode": "INT",
+      "capabilityCodes": [
+        "AUT-001"
+      ],
+      "executionStatus": "IN_PROGRESS",
+      "deliveryStage": "UAT",
+      "health": "AT_RISK"
+    },
+    {
+      "code": "CAD-011",
+      "name": "API de cadastro de estabelecimento",
+      "layer": "BACKEND",
+      "workstreamCode": "CORE",
+      "capabilityCodes": [
+        "CAD-001"
+      ],
+      "executionStatus": "DONE",
+      "deliveryStage": "SIT",
+      "health": "UNKNOWN"
+    }
+  ]
+}

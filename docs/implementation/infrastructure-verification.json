@@ -1,0 +1,41 @@
+{
+  "asOf": "2026-10-16T08:23:50.814Z",
+  "status": "PASSED",
+  "scope": "isolated local containers; synthetic data; no corporate homologation",
+  "checks": [
+    {
+      "name": "build-images",
+      "status": "PASSED"
+    },
+    {
+      "name": "isolated-postgres",
+      "status": "PASSED"
+    },
+    {
+      "name": "concurrent-migrations",
+      "status": "PASSED"
+    },
+    {
+      "name": "fixtures-and-runtime-grants",
+      "status": "PASSED"
+    },
+    {
+      "name": "web-without-worker",
+      "status": "PASSED"
+    },
+    {
+      "name": "separate-worker-and-jobs",
+      "status": "PASSED"
+    },
+    {
+      "name": "encrypted-backup-restore",
+      "status": "PASSED"
+    },
+    {
+      "name": "worker-stop-readiness",
+      "status": "PASSED"
+    }
+  ],
+  "dockerVersion": "29.3.1",
+  "cleanup": "COMPLETE"
+}

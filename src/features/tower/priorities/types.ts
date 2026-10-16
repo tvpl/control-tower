@@ -1,0 +1,32 @@
+import { type PriorityKind } from "@/server/domain/priorities";
+export type Board = {
+  kind: PriorityKind;
+  version: number;
+  orderedIds: string[];
+  savedIds: string[];
+  unrankedIds: string[];
+  universeHash: string;
+  updatedBy: string | null;
+  updatedAt: string | null;
+  reason: string | null;
+};
+export type QueueItem = {
+  id: string;
+  entityId: string;
+  kind: PriorityKind;
+  code: string;
+  name: string;
+  status: string;
+  health: string;
+  owner: string;
+  ownerInitials: string;
+  context: string;
+  forecast?: string;
+  accepted: boolean;
+  impactIds: string[];
+  blockers: { id: string; name: string }[];
+  relatedDeliverables: number;
+  criticality?: string;
+  record: Record<string, any>;
+};
+export type TowerState = Record<string, any>;

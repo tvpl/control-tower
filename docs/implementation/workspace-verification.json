@@ -1,0 +1,60 @@
+{
+  "checkedAt": "2026-10-16T08:28:03.623981+00:00",
+  "status": "PASSED",
+  "scope": "local Docker; synthetic QA; real external accounts not homologated",
+  "tests": {
+    "passed": 169,
+    "files": 25,
+    "seconds": 17.37
+  },
+  "e2e": {
+    "passed": 13,
+    "seconds": 48.0,
+    "isolatedProject": "mct-ui-qa-40ac1d06",
+    "cleanup": "COMPLETE"
+  },
+  "typecheck": "PASSED",
+  "lint": {
+    "errors": 0,
+    "warnings": 1,
+    "warning": "TanStack Table mutable API / react-hooks/incompatible-library"
+  },
+  "dockerBuild": ["web", "worker", "migrate"],
+  "infrastructure": {
+    "report": "infrastructure-verification.json",
+    "status": "PASSED",
+    "phases": 8,
+    "cleanup": "COMPLETE"
+  },
+  "local": {
+    "url": "http://127.0.0.1:3000",
+    "http": {
+      "login": 200,
+      "live": 200,
+      "ready": 200
+    },
+    "before": {
+      "programs": 1,
+      "capabilities": 20,
+      "deliverables": 24,
+      "migrations": 21
+    },
+    "after": {
+      "programs": 1,
+      "capabilities": 20,
+      "deliverables": 24,
+      "migrations": 21
+    },
+    "updatedServices": ["web", "worker"],
+    "seedApplied": false,
+    "businessMutationsInSmoke": false,
+    "checks": [
+      "18 navigation destinations",
+      "4 fronts",
+      "bulk editor opens",
+      "contextual AI export",
+      "one-record focused template"
+    ]
+  },
+  "externalGitLabAccountProvided": false
+}

@@ -1,0 +1,15 @@
+# Local development only. Apply with scripts/docker-local.mjs.
+services:
+  db:
+    ports: !reset []
+  worker:
+    environment:
+      AUTH_MODE: local
+  web:
+    environment:
+      AUTH_MODE: local
+      ALLOW_LOCAL_PREVIEW: 'true'
+      APP_ORIGIN: http://127.0.0.1:3000
+      OIDC_ISSUER: ''
+      OIDC_CLIENT_ID: ''
+      OIDC_CLIENT_SECRET: ''
